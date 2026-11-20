@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="laporan_pelanggan" pageWidth="595" pageHeight="842" columnWidth="555"
+              leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+
+    <!-- QUERY KE DATABASE FERNANDA -->
+    <queryString>
+        <![CDATA[SELECT id_pelanggan, nama_pelanggan, no_hp, no_polisi, jenis_motor FROM pelanggan ORDER BY id_pelanggan ASC]]>
+    </queryString>
+
+    <field name="id_pelanggan" class="java.lang.Integer"/>
+    <field name="nama_pelanggan" class="java.lang.String"/>
+    <field name="no_hp" class="java.lang.String"/>
+    <field name="no_polisi" class="java.lang.String"/>
+    <field name="jenis_motor" class="java.lang.String"/>
+
+    <!-- HEADER / KOP LAPORAN -->
+    <title>
+        <band height="85">
+            <rectangle>
+                <reportElement x="0" y="0" width="555" height="75" backcolor="#1E3A5F"/>
+                <graphicElement>
+                    <pen lineWidth="0.0"/>
+                </graphicElement>
+            </rectangle>
+            <staticText>
+                <reportElement x="0" y="10" width="555" height="28" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="SansSerif" size="18" isBold="true"/>
+                </textElement>
+                <text><![CDATA[BENGKEL MOTOR SIHOMBING]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="38" width="555" height="18" forecolor="#DCE6F1"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="SansSerif" size="11" isBold="true"/>
+                </textElement>
+                <text><![CDATA[LAPORAN DATA PELANGGAN TERDAFTAR]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="56" width="555" height="14" forecolor="#B8CCE4"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="SansSerif" size="9"/>
+                </textElement>
+                <text><![CDATA[Sistem Informasi Manajemen Servis & Pelanggan]]></text>
+            </staticText>
+        </band>
+    </title>
+
+    <!-- HEADER TABEL -->
+    <columnHeader>
+        <band height="28">
+            <rectangle>
+                <reportElement x="0" y="0" width="555" height="28" backcolor="#2B5B84"/>
+                <graphicElement>
+                    <pen lineWidth="0.5" lineColor="#1E3A5F"/>
+                </graphicElement>
+            </rectangle>
+            <staticText>
+                <reportElement x="0" y="0" width="45" height="28" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[ID]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="45" y="0" width="160" height="28" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Nama Pelanggan]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="205" y="0" width="115" height="28" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Nomor HP]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="320" y="0" width="110" height="28" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Nomor Polisi]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="430" y="0" width="125" height="28" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Jenis Motor]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+
+    <!-- ISI DATA BARIS -->
+    <detail>
+        <band height="24">
+            <textField>
+                <reportElement x="0" y="0" width="45" height="24"/>
+                <box><pen lineWidth="0.5" lineColor="#CCCCCC"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{id_pelanggan}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="45" y="0" width="160" height="24"/>
+                <box leftPadding="6"><pen lineWidth="0.5" lineColor="#CCCCCC"/></box>
+                <textElement verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{nama_pelanggan}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="205" y="0" width="115" height="24"/>
+                <box><pen lineWidth="0.5" lineColor="#CCCCCC"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{no_hp}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="320" y="0" width="110" height="24"/>
+                <box><pen lineWidth="0.5" lineColor="#CCCCCC"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{no_polisi}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="430" y="0" width="125" height="24"/>
+                <box leftPadding="6"><pen lineWidth="0.5" lineColor="#CCCCCC"/></box>
+                <textElement verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{jenis_motor}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+
+    <!-- FOOTER HALAMAN -->
+    <pageFooter>
+        <band height="30">
+            <line>
+                <reportElement x="0" y="5" width="555" height="1" forecolor="#1E3A5F"/>
+            </line>
+            <textField pattern="dd MMMMM yyyy HH:mm">
+                <reportElement x="0" y="10" width="250" height="18" forecolor="#666666"/>
+                <textElement verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Dicetak pada: " + new java.text.SimpleDateFormat("dd-MM-yyyy HH:mm").format(new java.util.Date())]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="430" y="10" width="125" height="18" forecolor="#666666"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Halaman " + $V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageFooter>
+
+</jasperReport>

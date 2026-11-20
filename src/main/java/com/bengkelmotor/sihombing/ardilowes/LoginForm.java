@@ -1,4 +1,3 @@
-
 package com.bengkelmotor.sihombing.ardilowes;
 
 import javax.swing.JOptionPane;
@@ -58,18 +57,13 @@ public class LoginForm extends javax.swing.JFrame {
     private void prosesLogin() {
 
         String username = txtUsername.getText().trim();
-
-        String password = new String(
-            txtPassword.getPassword()
-        ).trim();
+        String password = new String(txtPassword.getPassword()).trim();
 
         if (username.isEmpty() || password.isEmpty()) {
-
             JOptionPane.showMessageDialog(
                 this,
                 "Username dan password wajib diisi!"
             );
-
             return;
         }
 
@@ -77,14 +71,10 @@ public class LoginForm extends javax.swing.JFrame {
 
         try (
             java.sql.Connection conn =
-                java.sql.DriverManager.getConnection(
-                    url, "root", ""
-                );
-
+                java.sql.DriverManager.getConnection(url, "root", "");
             java.sql.PreparedStatement ps =
                 conn.prepareStatement(
-                    "SELECT * FROM pengguna "
-                    + "WHERE username = ? AND password = ?"
+                    "SELECT * FROM pengguna WHERE username = ? AND password = ?"
                 )
         ) {
 
@@ -96,41 +86,37 @@ public class LoginForm extends javax.swing.JFrame {
                 if (rs.next()) {
 
                     try {
-
                         // MEMBUAT SPRING CONTEXT
                         springContext =
                             new AnnotationConfigApplicationContext(
                                 DatabaseConfig.class
                             );
 
-                        // MENGAMBIL DAO
+                        // MENGAMBIL DAO LAYANAN & PELANGGAN
                         LayananDAO layananDAO =
                             springContext.getBean(LayananDAO.class);
+                        PelangganDAO pelangganDAO =
+                            springContext.getBean(PelangganDAO.class);
 
-                        // MEMBUKA HALAMAN UTAMA
+                        // MEMBUKA HALAMAN UTAMA DENGAN KEDUA DAO
                         ServiceFrame halaman =
-                            new ServiceFrame(username, layananDAO);
+                            new ServiceFrame(username, layananDAO, pelangganDAO);
 
                         halaman.setVisible(true);
-
                         this.dispose();
 
                     } catch (Exception e) {
-
                         if (springContext != null) {
                             springContext.close();
                             springContext = null;
                         }
-
                         JOptionPane.showMessageDialog(
                             this,
-                            "Gagal mengakses Spring DAO: "
-                            + e.getMessage()
+                            "Gagal mengakses Spring DAO: " + e.getMessage()
                         );
                     }
 
                 } else {
-
                     JOptionPane.showMessageDialog(
                         this,
                         "Username atau password salah!"
@@ -139,7 +125,6 @@ public class LoginForm extends javax.swing.JFrame {
             }
 
         } catch (java.sql.SQLException e) {
-
             JOptionPane.showMessageDialog(
                 this,
                 "Error Database: " + e.getMessage()
@@ -148,7 +133,6 @@ public class LoginForm extends javax.swing.JFrame {
     }
 
     public static void main(String[] args) {
-
         java.awt.EventQueue.invokeLater(() -> {
             new LoginForm().setVisible(true);
         });
