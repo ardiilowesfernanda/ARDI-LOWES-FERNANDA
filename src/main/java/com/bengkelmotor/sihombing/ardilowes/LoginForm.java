@@ -1,57 +1,140 @@
 package com.bengkelmotor.sihombing.ardilowes;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-public class LoginForm extends javax.swing.JFrame {
+public class LoginForm extends JFrame {
 
-    private javax.swing.JTextField txtUsername;
-    private javax.swing.JPasswordField txtPassword;
-    private javax.swing.JButton btnSubmit;
+    private JTextField txtUsername;
+    private JPasswordField txtPassword;
+    private JButton btnSubmit;
 
     private AnnotationConfigApplicationContext springContext;
 
     public LoginForm() {
 
         setTitle("Login - Bengkel Motor Sihombing");
-        setSize(450, 330);
-        setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+        setSize(460, 420);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
 
-        javax.swing.JPanel panel = new javax.swing.JPanel();
+        JPanel panelUtama = new JPanel(new BorderLayout());
+        panelUtama.setBackground(new Color(240, 244, 248));
 
-        panel.setBackground(new java.awt.Color(220, 224, 230));
-        panel.setBorder(
-            javax.swing.BorderFactory.createEmptyBorder(30, 40, 30, 40)
-        );
-        panel.setLayout(new java.awt.GridLayout(4, 2, 15, 20));
+        // HEADER NAVY
+        JPanel panelHeader = new JPanel(new BorderLayout(0, 6));
+        panelHeader.setBackground(new Color(30, 58, 95));
+        panelHeader.setBorder(BorderFactory.createEmptyBorder(25, 20, 25, 20));
 
-        javax.swing.JLabel title = new javax.swing.JLabel(
-            "LOGIN ADMIN",
-            javax.swing.SwingConstants.CENTER
-        );
+        JLabel lblBengkel = new JLabel("BENGKEL MOTOR SIHOMBING", SwingConstants.CENTER);
+        lblBengkel.setFont(new Font("Segoe UI", Font.BOLD, 20));
+        lblBengkel.setForeground(Color.WHITE);
 
-        title.setFont(new java.awt.Font(
-            "Arial", java.awt.Font.BOLD, 20
+        JLabel lblSub = new JLabel("Login Administrator Sistem Servis", SwingConstants.CENTER);
+        lblSub.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        lblSub.setForeground(new Color(200, 218, 235));
+
+        panelHeader.add(lblBengkel, BorderLayout.CENTER);
+        panelHeader.add(lblSub, BorderLayout.SOUTH);
+
+        // FORM CARD PUTIH
+        JPanel panelWrapper = new JPanel(new GridBagLayout());
+        panelWrapper.setBackground(new Color(240, 244, 248));
+        panelWrapper.setBorder(BorderFactory.createEmptyBorder(20, 35, 25, 35));
+
+        JPanel card = new JPanel(new GridBagLayout());
+        card.setBackground(Color.WHITE);
+        card.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(new Color(215, 223, 232), 1),
+            BorderFactory.createEmptyBorder(25, 28, 25, 28)
         ));
 
-        txtUsername = new javax.swing.JTextField();
-        txtPassword = new javax.swing.JPasswordField();
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1.0;
+        gbc.gridx = 0;
 
-        btnSubmit = new javax.swing.JButton("SUBMIT");
+        JLabel lblUser = new JLabel("Username");
+        lblUser.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        lblUser.setForeground(new Color(50, 65, 85));
+
+        txtUsername = new JTextField();
+        txtUsername.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        txtUsername.setPreferredSize(new Dimension(280, 36));
+        txtUsername.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(new Color(190, 200, 212)),
+            BorderFactory.createEmptyBorder(5, 10, 5, 10)
+        ));
+
+        JLabel lblPass = new JLabel("Password");
+        lblPass.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        lblPass.setForeground(new Color(50, 65, 85));
+
+        txtPassword = new JPasswordField();
+        txtPassword.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        txtPassword.setPreferredSize(new Dimension(280, 36));
+        txtPassword.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(new Color(190, 200, 212)),
+            BorderFactory.createEmptyBorder(5, 10, 5, 10)
+        ));
+
+        btnSubmit = new JButton("MASUK APLIKASI");
+        btnSubmit.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        btnSubmit.setBackground(new Color(30, 95, 168));
+        btnSubmit.setForeground(Color.WHITE);
+        btnSubmit.setPreferredSize(new Dimension(280, 40));
+        btnSubmit.setFocusPainted(false);
+        btnSubmit.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btnSubmit.addActionListener(e -> prosesLogin());
 
-        panel.add(title);
-        panel.add(new javax.swing.JLabel(""));
-        panel.add(new javax.swing.JLabel("Username"));
-        panel.add(txtUsername);
-        panel.add(new javax.swing.JLabel("Password"));
-        panel.add(txtPassword);
-        panel.add(new javax.swing.JLabel(""));
-        panel.add(btnSubmit);
+        gbc.gridy = 0;
+        gbc.insets = new Insets(0, 0, 5, 0);
+        card.add(lblUser, gbc);
 
-        add(panel);
+        gbc.gridy = 1;
+        gbc.insets = new Insets(0, 0, 14, 0);
+        card.add(txtUsername, gbc);
+
+        gbc.gridy = 2;
+        gbc.insets = new Insets(0, 0, 5, 0);
+        card.add(lblPass, gbc);
+
+        gbc.gridy = 3;
+        gbc.insets = new Insets(0, 0, 20, 0);
+        card.add(txtPassword, gbc);
+
+        gbc.gridy = 4;
+        gbc.insets = new Insets(0, 0, 0, 0);
+        card.add(btnSubmit, gbc);
+
+        panelWrapper.add(card);
+
+        panelUtama.add(panelHeader, BorderLayout.NORTH);
+        panelUtama.add(panelWrapper, BorderLayout.CENTER);
+
+        add(panelUtama);
+
+        // AGAR BISA TEKAN ENTER LANGSUNG LOGIN
+        getRootPane().setDefaultButton(btnSubmit);
     }
 
     private void prosesLogin() {
@@ -62,7 +145,9 @@ public class LoginForm extends javax.swing.JFrame {
         if (username.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(
                 this,
-                "Username dan password wajib diisi!"
+                "Username dan password wajib diisi!",
+                "Peringatan",
+                JOptionPane.WARNING_MESSAGE
             );
             return;
         }
@@ -86,19 +171,16 @@ public class LoginForm extends javax.swing.JFrame {
                 if (rs.next()) {
 
                     try {
-                        // MEMBUAT SPRING CONTEXT
                         springContext =
                             new AnnotationConfigApplicationContext(
                                 DatabaseConfig.class
                             );
 
-                        // MENGAMBIL DAO LAYANAN & PELANGGAN
                         LayananDAO layananDAO =
                             springContext.getBean(LayananDAO.class);
                         PelangganDAO pelangganDAO =
                             springContext.getBean(PelangganDAO.class);
 
-                        // MEMBUKA HALAMAN UTAMA DENGAN KEDUA DAO
                         ServiceFrame halaman =
                             new ServiceFrame(username, layananDAO, pelangganDAO);
 
@@ -119,7 +201,9 @@ public class LoginForm extends javax.swing.JFrame {
                 } else {
                     JOptionPane.showMessageDialog(
                         this,
-                        "Username atau password salah!"
+                        "Username atau password salah!",
+                        "Login Gagal",
+                        JOptionPane.ERROR_MESSAGE
                     );
                 }
             }

@@ -1,4 +1,3 @@
-
 package com.bengkelmotor.sihombing.ardilowes;
 
 import java.util.List;
@@ -14,28 +13,34 @@ public class PelangganDAO {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    // MENAMBAH DATA PELANGGAN
+    // MENAMBAH DATA PELANGGAN + TANGGAL + LAYANAN + TOTAL BIAYA
     public int tambahPelanggan(
+            String tanggal,
             String nama,
             String noHp,
             String noPolisi,
-            String jenisMotor) {
+            String jenisMotor,
+            String layananDipilih,
+            int totalBiaya) {
 
         String sql = "INSERT INTO pelanggan "
-                + "(nama_pelanggan, no_hp, no_polisi, jenis_motor) "
-                + "VALUES (?, ?, ?, ?)";
+                + "(tanggal, nama_pelanggan, no_hp, no_polisi, jenis_motor, layanan_dipilih, total_biaya) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         return jdbcTemplate.update(
-                sql, nama, noHp, noPolisi, jenisMotor
+                sql, tanggal, nama, noHp, noPolisi, jenisMotor, layananDipilih, totalBiaya
         );
     }
 
+    // MENGHAPUS DATA PELANGGAN BERDASARKAN ID
+    public int hapusPelanggan(int idPelanggan) {
+        String sql = "DELETE FROM pelanggan WHERE id_pelanggan = ?";
+        return jdbcTemplate.update(sql, idPelanggan);
+    }
+
     // MENAMPILKAN DATA PELANGGAN
-    public List<Map<String, Object>> tampilPelanggan() {
-
-        String sql = "SELECT * FROM pelanggan "
-                + "ORDER BY id_pelanggan DESC";
-
+    public List< Map<String, Object> > tampilPelanggan() {
+        String sql = "SELECT * FROM pelanggan ORDER BY id_pelanggan DESC";
         return jdbcTemplate.queryForList(sql);
     }
 }
